@@ -76,8 +76,13 @@
       <p class="text-gray-400 leading-relaxed max-w-xl">
         Este formulário serve para alinhar exatamente o que o portal do MBL DF precisa ter. Responda com calma — suas respostas vão definir o que será desenvolvido e em qual ordem.
       </p>
-      <div class="mt-6 bg-white/5 border border-white/10 rounded-xl p-4 text-sm text-gray-400">
-        <span class="text-df-yellow font-bold">Importante:</span> Itens marcados como <span class="text-orange-400 font-bold">baixa prioridade</span> serão planejados mas <strong class="text-white">não entram na primeira versão</strong>. Eles serão desenvolvidos em fases futuras.
+      <div class="mt-6 space-y-3">
+        <div class="bg-white/5 border border-white/10 rounded-xl p-4 text-sm text-gray-400">
+          <span class="text-df-yellow font-bold">Importante:</span> Itens marcados como <span class="text-orange-400 font-bold">baixa prioridade</span> serão planejados mas <strong class="text-white">não entram na primeira versão</strong>. Eles serão desenvolvidos em fases futuras.
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-xl p-4 text-sm text-gray-400">
+          <span class="text-df-green font-bold">Sobre os extras:</span> Algumas opções têm indicadores de esforço: <span class="text-green-400 font-mono text-xs px-1.5 py-0.5 bg-green-400/10 rounded">simples</span> <span class="text-yellow-400 font-mono text-xs px-1.5 py-0.5 bg-yellow-400/10 rounded">médio</span> <span class="text-red-400 font-mono text-xs px-1.5 py-0.5 bg-red-400/10 rounded">complexo</span>. Quanto mais itens marcados, mais tempo o desenvolvimento leva. <strong class="text-white">Marque só o que é realmente necessário.</strong>
+        </div>
       </div>
     </div>
 
@@ -183,9 +188,18 @@
 
       <div class="space-y-6">
         <div>
+          <p class="text-sm font-bold text-white mb-3">Antes de tudo — faz sentido ter essa página?</p>
+          <div class="space-y-2 pl-1">
+            <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="members_needed" value="yes" data-section="members" data-key="page_needed"> Sim, queremos apresentar os integrantes</label>
+            <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="members_needed" value="maybe" data-section="members" data-key="page_needed"> Talvez, mas não é prioridade agora</label>
+            <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="members_needed" value="no" data-section="members" data-key="page_needed"> Não precisa, pode remover</label>
+          </div>
+        </div>
+
+        <div>
           <p class="text-sm font-bold text-white mb-3">Atualmente cada membro tem:</p>
           <div class="space-y-3 pl-1">
-            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked data-section="members" data-key="photo"> <span class="text-sm">Foto</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked data-section="members" data-key="photo"> <span class="text-sm">Foto (via link — ex: foto do Instagram ou outra URL)</span></label>
             <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked data-section="members" data-key="name"> <span class="text-sm">Nome</span></label>
             <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked data-section="members" data-key="role_label"> <span class="text-sm">Cargo (ex: "Porta-voz DF")</span></label>
             <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked data-section="members" data-key="bio"> <span class="text-sm">Biografia curta</span></label>
@@ -196,9 +210,8 @@
         <div>
           <p class="text-sm font-bold text-white mb-3">Quer adicionar mais informações em cada membro?</p>
           <div class="space-y-3 pl-1">
-            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="members" data-key="twitter"> <span class="text-sm">Link do Twitter/X</span></label>
-            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="members" data-key="other_social"> <span class="text-sm">Outras redes sociais</span></label>
-            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="members" data-key="longer_bio"> <span class="text-sm">Biografia mais longa (página individual do membro)</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="members" data-key="twitter"> <span class="text-sm">Link do Twitter/X <span class="text-green-400 font-mono text-[10px] px-1 py-0.5 bg-green-400/10 rounded ml-1">simples</span></span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="members" data-key="other_social"> <span class="text-sm">Outras redes sociais <span class="text-green-400 font-mono text-[10px] px-1 py-0.5 bg-green-400/10 rounded ml-1">simples</span></span></label>
           </div>
         </div>
 
@@ -208,9 +221,10 @@
         </div>
 
         <div>
-          <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2">As fotos e bios já estão prontas para enviar?</label>
+          <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2">As fotos e bios já estão prontas?</label>
+          <p class="text-gray-600 text-xs mb-3">As fotos precisam ser um link (URL da foto do Instagram, Imgur ou similar).</p>
           <div class="space-y-2 pl-1">
-            <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="members_ready" value="yes" data-section="members" data-key="content_ready"> Sim, tenho tudo pronto</label>
+            <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="members_ready" value="yes" data-section="members" data-key="content_ready"> Sim, tenho links e textos de todos</label>
             <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="members_ready" value="partial" data-section="members" data-key="content_ready"> Tenho de alguns, outros faltam</label>
             <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="members_ready" value="no" data-section="members" data-key="content_ready"> Ainda preciso coletar</label>
           </div>
@@ -243,13 +257,17 @@
           </div>
         </div>
 
+        <div class="bg-white/[0.03] border border-white/10 rounded-xl p-4 text-sm text-gray-400">
+          <span class="text-white font-bold">Sobre imagens:</span> As imagens das notícias são adicionadas via link (URL de uma foto do Instagram, Imgur, Google Drive público, etc.). Upload direto poderá ser adicionado em versão futura se necessário.
+        </div>
+
         <div>
           <p class="text-sm font-bold text-white mb-3">Quer adicionar algo ao sistema de notícias?</p>
+          <p class="text-gray-600 text-xs mb-3">Marque só o que é realmente necessário — cada item adicional aumenta o tempo de desenvolvimento.</p>
           <div class="space-y-3 pl-1">
-            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="news" data-key="categories"> <span class="text-sm">Categorias (ex: "Ato", "Nota Oficial", "Informativo")</span></label>
-            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="news" data-key="image_upload"> <span class="text-sm">Upload de imagem (ao invés de colar URL)</span></label>
-            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="news" data-key="rich_text"> <span class="text-sm">Texto formatado (negrito, itálico, links, listas)</span></label>
-            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="news" data-key="pin"> <span class="text-sm">Fixar notícia no topo</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="news" data-key="categories"> <span class="text-sm">Categorias (ex: "Ato", "Nota Oficial", "Informativo") <span class="text-green-400 font-mono text-[10px] px-1 py-0.5 bg-green-400/10 rounded ml-1">simples</span></span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="news" data-key="rich_text"> <span class="text-sm">Texto formatado (negrito, itálico, links, listas) <span class="text-yellow-400 font-mono text-[10px] px-1 py-0.5 bg-yellow-400/10 rounded ml-1">médio</span></span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="news" data-key="pin"> <span class="text-sm">Fixar notícia no topo <span class="text-green-400 font-mono text-[10px] px-1 py-0.5 bg-green-400/10 rounded ml-1">simples</span></span></label>
           </div>
         </div>
 
@@ -398,15 +416,16 @@
 
         <div>
           <p class="text-sm font-bold text-white mb-3">Quer adicionar funcionalidades?</p>
+          <p class="text-gray-600 text-xs mb-3">Marque só o que é realmente necessário para a primeira versão.</p>
           <div class="space-y-3 pl-1">
-            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="expenses" data-key="categories"> <span class="text-sm">Categorias de gastos (ex: "Transporte", "Material", "Evento")</span></label>
-            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="expenses" data-key="balance"> <span class="text-sm">Mostrar saldo total (entradas - saídas)</span></label>
-            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="expenses" data-key="monthly_filter"> <span class="text-sm">Filtrar por mês/período</span></label>
-            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="expenses" data-key="export_pdf"> <span class="text-sm">Exportar relatório em PDF</span></label>
-            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="expenses" data-key="export_excel"> <span class="text-sm">Exportar para Excel/CSV</span></label>
-            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="expenses" data-key="receipt"> <span class="text-sm">Anexar comprovante (foto/PDF) em cada lançamento</span></label>
-            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="expenses" data-key="edit_delete"> <span class="text-sm">Editar ou excluir lançamentos já feitos</span></label>
-            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="expenses" data-key="public_view"> <span class="text-sm">Deixar prestação de contas pública (sem precisar de login)</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="expenses" data-key="categories"> <span class="text-sm">Categorias de gastos (ex: "Transporte", "Material", "Evento") <span class="text-green-400 font-mono text-[10px] px-1 py-0.5 bg-green-400/10 rounded ml-1">simples</span></span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="expenses" data-key="balance"> <span class="text-sm">Mostrar saldo total (entradas - saídas) <span class="text-green-400 font-mono text-[10px] px-1 py-0.5 bg-green-400/10 rounded ml-1">simples</span></span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="expenses" data-key="monthly_filter"> <span class="text-sm">Filtrar por mês/período <span class="text-yellow-400 font-mono text-[10px] px-1 py-0.5 bg-yellow-400/10 rounded ml-1">médio</span></span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="expenses" data-key="export_pdf"> <span class="text-sm">Exportar relatório em PDF <span class="text-yellow-400 font-mono text-[10px] px-1 py-0.5 bg-yellow-400/10 rounded ml-1">médio</span></span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="expenses" data-key="export_excel"> <span class="text-sm">Exportar para Excel/CSV <span class="text-yellow-400 font-mono text-[10px] px-1 py-0.5 bg-yellow-400/10 rounded ml-1">médio</span></span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="expenses" data-key="receipt_link"> <span class="text-sm">Adicionar link de comprovante em cada lançamento (link do Google Drive, foto, etc.) <span class="text-green-400 font-mono text-[10px] px-1 py-0.5 bg-green-400/10 rounded ml-1">simples</span></span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="expenses" data-key="edit_delete"> <span class="text-sm">Editar ou excluir lançamentos já feitos <span class="text-green-400 font-mono text-[10px] px-1 py-0.5 bg-green-400/10 rounded ml-1">simples</span></span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="expenses" data-key="public_view"> <span class="text-sm">Deixar prestação de contas pública (sem precisar de login) <span class="text-green-400 font-mono text-[10px] px-1 py-0.5 bg-green-400/10 rounded ml-1">simples</span></span></label>
           </div>
         </div>
 
