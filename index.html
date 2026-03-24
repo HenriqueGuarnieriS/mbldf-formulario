@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MBL DF — Formulário de Requisitos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            mbl: { black: '#121212', dark: '#1A1A1A', gray: '#27272A' },
+            df: { green: '#009C3B', neonGreen: '#00C853', yellow: '#FFD700', lightYellow: '#FFF176' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    input[type="checkbox"] { accent-color: #009C3B; width: 18px; height: 18px; cursor: pointer; }
+    input[type="radio"] { accent-color: #009C3B; width: 18px; height: 18px; cursor: pointer; }
+    textarea, input[type="text"] {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: white;
+      border-radius: 12px;
+      padding: 12px 16px;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    textarea:focus, input[type="text"]:focus { border-color: #009C3B; }
+    textarea { min-height: 80px; resize: vertical; }
+    .section { border-top: 1px solid rgba(255,255,255,0.05); }
+    .permission-grid { display: grid; grid-template-columns: 1fr repeat(4, 80px); gap: 0; }
+    .permission-grid > * { padding: 12px 8px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; }
+    .permission-grid > *:first-child { justify-content: flex-start; }
+    @media (max-width: 768px) {
+      .permission-grid { grid-template-columns: 1fr repeat(4, 60px); }
+      .permission-grid > * { padding: 8px 4px; font-size: 11px; }
+    }
+    .conditional { display: none; margin-top: 12px; padding-left: 32px; }
+    .conditional.show { display: block; }
+  </style>
+</head>
+<body class="font-sans bg-mbl-black text-white min-h-screen">
+
+  <!-- Header -->
+  <div class="sticky top-0 z-50 bg-mbl-black/90 backdrop-blur-md border-b border-white/5">
+    <div class="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div>
+        <h1 class="text-lg font-black tracking-tight">MBL <span class="text-df-yellow">DF</span></h1>
+        <p class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Formulário de Requisitos</p>
+      </div>
+      <div class="flex gap-2">
+        <button onclick="clearForm()" class="px-3 py-2 bg-white/5 border border-white/10 text-gray-400 text-xs font-bold rounded-lg hover:text-red-400 hover:border-red-400/30 transition-all">
+          Limpar
+        </button>
+        <button onclick="exportForm()" class="px-4 py-2 bg-df-green text-white text-xs font-bold rounded-lg hover:bg-df-neonGreen transition-all">
+          Exportar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-3xl mx-auto px-6 py-8 space-y-0">
+
+    <!-- Intro -->
+    <div class="pb-12">
+      <h2 class="text-3xl md:text-5xl font-black tracking-tighter mb-4 leading-tight">
+        Definição de<br><span class="text-df-yellow">Requisitos</span>
+      </h2>
+      <p class="text-gray-400 leading-relaxed max-w-xl">
+        Este formulário serve para alinhar exatamente o que o portal do MBL DF precisa ter. Responda com calma — suas respostas vão definir o que será desenvolvido e em qual ordem.
+      </p>
+      <div class="mt-6 bg-white/5 border border-white/10 rounded-xl p-4 text-sm text-gray-400">
+        <span class="text-df-yellow font-bold">Importante:</span> Itens marcados como <span class="text-orange-400 font-bold">baixa prioridade</span> serão planejados mas <strong class="text-white">não entram na primeira versão</strong>. Eles serão desenvolvidos em fases futuras.
+      </div>
+    </div>
+
+    <!-- ========== SEÇÃO 1: PÁGINA INICIAL ========== -->
+    <div class="section pt-12 pb-10">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-xs font-bold bg-df-green text-white px-2 py-0.5 rounded-full uppercase">Alta Prioridade</span>
+      </div>
+      <h3 class="text-2xl font-black tracking-tight mb-2">1. Página Inicial</h3>
+      <p class="text-gray-500 text-sm mb-8">O que o visitante vê ao acessar o site pela primeira vez.</p>
+
+      <div class="space-y-6">
+        <div>
+          <p class="text-sm font-bold text-white mb-3">Atualmente a página inicial contém:</p>
+          <div class="space-y-3 pl-1">
+            <label class="flex items-start gap-3 cursor-pointer">
+              <input type="checkbox" checked data-section="home" data-key="hero">
+              <div>
+                <span class="text-sm font-medium">Seção principal (Hero)</span>
+                <p class="text-xs text-gray-500">Título "OBSERVANDO O PODER", subtítulo, botões "Nossos Membros" e "Nossa História", foto da equipe</p>
+              </div>
+            </label>
+            <label class="flex items-start gap-3 cursor-pointer">
+              <input type="checkbox" checked data-section="home" data-key="timeline">
+              <div>
+                <span class="text-sm font-medium">Timeline / Trajetória</span>
+                <p class="text-xs text-gray-500">Linha do tempo com marcos do MBL DF de 2015 até hoje</p>
+              </div>
+            </label>
+            <label class="flex items-start gap-3 cursor-pointer">
+              <input type="checkbox" checked data-section="home" data-key="cta">
+              <div>
+                <span class="text-sm font-medium">Seção "Faça Parte da Mudança"</span>
+                <p class="text-xs text-gray-500">Call-to-action convidando visitantes a participar</p>
+              </div>
+            </label>
+            <label class="flex items-start gap-3 cursor-pointer">
+              <input type="checkbox" checked data-section="home" data-key="contact_btn">
+              <div>
+                <span class="text-sm font-medium">Botão flutuante "Junte-se a nós"</span>
+                <p class="text-xs text-gray-500">Formulário de contato acessível em todas as páginas</p>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-sm font-bold text-white mb-3">Desmarque o que quer remover e marque o que quer adicionar:</p>
+          <div class="space-y-3 pl-1">
+            <label class="flex items-start gap-3 cursor-pointer">
+              <input type="checkbox" data-section="home" data-key="video" onchange="toggleConditional(this, 'home-video-detail')">
+              <div>
+                <span class="text-sm font-medium">Adicionar vídeo na página inicial</span>
+                <p class="text-xs text-gray-500">Vídeo institucional no estilo do MBL ES</p>
+              </div>
+            </label>
+            <div id="home-video-detail" class="conditional">
+              <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2">Onde o vídeo ficaria?</label>
+              <div class="space-y-2 mb-3">
+                <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="video_pos" value="hero" data-section="home" data-key="video_position"> No hero (substituindo ou ao lado da foto)</label>
+                <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="video_pos" value="section" data-section="home" data-key="video_position"> Em uma seção própria separada</label>
+                <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="video_pos" value="unsure" data-section="home" data-key="video_position"> Não sei, decidir depois</label>
+              </div>
+              <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2">O vídeo já está pronto?</label>
+              <div class="space-y-2">
+                <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="video_ready" value="yes" data-section="home" data-key="video_ready"> Sim, já tenho o arquivo/link</label>
+                <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="video_ready" value="editing" data-section="home" data-key="video_ready"> Está sendo editado</label>
+                <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="video_ready" value="no" data-section="home" data-key="video_ready"> Ainda não foi feito</label>
+              </div>
+            </div>
+
+            <label class="flex items-start gap-3 cursor-pointer">
+              <input type="checkbox" data-section="home" data-key="new_logo" onchange="toggleConditional(this, 'home-logo-detail')">
+              <div>
+                <span class="text-sm font-medium">Trocar a logo do MBL DF</span>
+                <p class="text-xs text-gray-500">Substituir a logo atual por uma nova</p>
+              </div>
+            </label>
+            <div id="home-logo-detail" class="conditional">
+              <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2">A nova logo já foi aprovada pela equipe?</label>
+              <div class="space-y-2">
+                <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="logo_approved" value="yes" data-section="home" data-key="logo_approved"> Sim</label>
+                <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="logo_approved" value="pending" data-section="home" data-key="logo_approved"> Aguardando aprovação</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2">Algo mais que queira adicionar ou mudar na página inicial?</label>
+          <textarea data-section="home" data-key="extra" placeholder="Descreva aqui..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SEÇÃO 2: MEMBROS ========== -->
+    <div class="section pt-12 pb-10">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-xs font-bold bg-df-green text-white px-2 py-0.5 rounded-full uppercase">Alta Prioridade</span>
+      </div>
+      <h3 class="text-2xl font-black tracking-tight mb-2">2. Página de Membros</h3>
+      <p class="text-gray-500 text-sm mb-8">Apresentação dos integrantes do movimento.</p>
+
+      <div class="space-y-6">
+        <div>
+          <p class="text-sm font-bold text-white mb-3">Atualmente cada membro tem:</p>
+          <div class="space-y-3 pl-1">
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked data-section="members" data-key="photo"> <span class="text-sm">Foto</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked data-section="members" data-key="name"> <span class="text-sm">Nome</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked data-section="members" data-key="role_label"> <span class="text-sm">Cargo (ex: "Porta-voz DF")</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked data-section="members" data-key="bio"> <span class="text-sm">Biografia curta</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked data-section="members" data-key="instagram"> <span class="text-sm">Link do Instagram</span></label>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-sm font-bold text-white mb-3">Quer adicionar mais informações em cada membro?</p>
+          <div class="space-y-3 pl-1">
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="members" data-key="twitter"> <span class="text-sm">Link do Twitter/X</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="members" data-key="other_social"> <span class="text-sm">Outras redes sociais</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="members" data-key="longer_bio"> <span class="text-sm">Biografia mais longa (página individual do membro)</span></label>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2">Quantos membros devem aparecer na página?</label>
+          <input type="text" data-section="members" data-key="count" placeholder="Ex: 6 porta-vozes + coordenador">
+        </div>
+
+        <div>
+          <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2">As fotos e bios já estão prontas para enviar?</label>
+          <div class="space-y-2 pl-1">
+            <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="members_ready" value="yes" data-section="members" data-key="content_ready"> Sim, tenho tudo pronto</label>
+            <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="members_ready" value="partial" data-section="members" data-key="content_ready"> Tenho de alguns, outros faltam</label>
+            <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="members_ready" value="no" data-section="members" data-key="content_ready"> Ainda preciso coletar</label>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2">Observações sobre a página de membros:</label>
+          <textarea data-section="members" data-key="extra" placeholder="Algo mais que queira mudar ou adicionar..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SEÇÃO 3: NOTÍCIAS ========== -->
+    <div class="section pt-12 pb-10">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-xs font-bold bg-df-green text-white px-2 py-0.5 rounded-full uppercase">Alta Prioridade</span>
+      </div>
+      <h3 class="text-2xl font-black tracking-tight mb-2">3. Notícias</h3>
+      <p class="text-gray-500 text-sm mb-8">Sistema de publicação de atualizações do movimento.</p>
+
+      <div class="space-y-6">
+        <div>
+          <p class="text-sm font-bold text-white mb-3">O sistema de notícias já permite:</p>
+          <div class="space-y-3 pl-1">
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked data-section="news" data-key="create"> <span class="text-sm">Criar notícia (título, resumo, conteúdo, imagem)</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked data-section="news" data-key="edit"> <span class="text-sm">Editar notícia publicada</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked data-section="news" data-key="delete"> <span class="text-sm">Excluir notícia</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked data-section="news" data-key="individual_page"> <span class="text-sm">Página individual para cada notícia</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked data-section="news" data-key="public_feed"> <span class="text-sm">Feed público (qualquer visitante lê)</span></label>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-sm font-bold text-white mb-3">Quer adicionar algo ao sistema de notícias?</p>
+          <div class="space-y-3 pl-1">
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="news" data-key="categories"> <span class="text-sm">Categorias (ex: "Ato", "Nota Oficial", "Informativo")</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="news" data-key="image_upload"> <span class="text-sm">Upload de imagem (ao invés de colar URL)</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="news" data-key="rich_text"> <span class="text-sm">Texto formatado (negrito, itálico, links, listas)</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="news" data-key="pin"> <span class="text-sm">Fixar notícia no topo</span></label>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2">Sobre edição/exclusão de notícias:</label>
+          <div class="space-y-2 pl-1">
+            <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="news_edit_policy" value="own_only" data-section="news" data-key="edit_policy"> Cada pessoa só pode editar/excluir as notícias que ela mesma criou</label>
+            <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="news_edit_policy" value="any" data-section="news" data-key="edit_policy"> Quem tem permissão pode editar/excluir qualquer notícia</label>
+            <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="news_edit_policy" value="admin_any" data-section="news" data-key="edit_policy"> Porta-voz edita só as próprias, admin/coordenador edita todas</label>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2">Observações sobre notícias:</label>
+          <textarea data-section="news" data-key="extra" placeholder="Algo mais..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SEÇÃO 4: CARGOS E PERMISSÕES ========== -->
+    <div class="section pt-12 pb-10">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-xs font-bold bg-df-green text-white px-2 py-0.5 rounded-full uppercase">Alta Prioridade</span>
+      </div>
+      <h3 class="text-2xl font-black tracking-tight mb-2">4. Cargos e Permissões</h3>
+      <p class="text-gray-500 text-sm mb-4">Defina exatamente o que cada cargo pode fazer no sistema.</p>
+      <p class="text-gray-600 text-xs mb-8">Marque as permissões de cada cargo. Se um cargo não faz sentido, deixe a coluna em branco.</p>
+
+      <div class="bg-white/5 border border-white/10 rounded-2xl overflow-hidden mb-8">
+        <div class="permission-grid text-xs font-bold uppercase tracking-wider text-gray-400">
+          <div class="bg-white/5 !justify-start">Permissão</div>
+          <div class="bg-white/5 text-df-yellow text-center">Admin<br>Master</div>
+          <div class="bg-white/5 text-df-green text-center">Coord.<br>Geral</div>
+          <div class="bg-white/5 text-white text-center">Porta-<br>Voz</div>
+          <div class="bg-white/5 text-gray-400 text-center">Membro</div>
+        </div>
+
+        <div class="permission-grid text-sm" id="permissionGrid">
+          <!-- Notícias -->
+          <div class="!justify-start text-gray-300 font-medium">Criar notícia</div>
+          <div><input type="checkbox" checked data-section="roles" data-key="admin_create_news"></div>
+          <div><input type="checkbox" checked data-section="roles" data-key="coord_create_news"></div>
+          <div><input type="checkbox" checked data-section="roles" data-key="portavoz_create_news"></div>
+          <div><input type="checkbox" data-section="roles" data-key="membro_create_news"></div>
+
+          <div class="!justify-start text-gray-300 font-medium">Editar qualquer notícia</div>
+          <div><input type="checkbox" checked data-section="roles" data-key="admin_edit_any_news"></div>
+          <div><input type="checkbox" checked data-section="roles" data-key="coord_edit_any_news"></div>
+          <div><input type="checkbox" data-section="roles" data-key="portavoz_edit_any_news"></div>
+          <div><input type="checkbox" data-section="roles" data-key="membro_edit_any_news"></div>
+
+          <div class="!justify-start text-gray-300 font-medium">Excluir qualquer notícia</div>
+          <div><input type="checkbox" checked data-section="roles" data-key="admin_delete_any_news"></div>
+          <div><input type="checkbox" checked data-section="roles" data-key="coord_delete_any_news"></div>
+          <div><input type="checkbox" data-section="roles" data-key="portavoz_delete_any_news"></div>
+          <div><input type="checkbox" data-section="roles" data-key="membro_delete_any_news"></div>
+
+          <!-- Finanças -->
+          <div class="!justify-start text-gray-300 font-medium bg-white/[0.02]">Registrar entrada/saída</div>
+          <div class="bg-white/[0.02]"><input type="checkbox" checked data-section="roles" data-key="admin_add_expense"></div>
+          <div class="bg-white/[0.02]"><input type="checkbox" data-section="roles" data-key="coord_add_expense"></div>
+          <div class="bg-white/[0.02]"><input type="checkbox" data-section="roles" data-key="portavoz_add_expense"></div>
+          <div class="bg-white/[0.02]"><input type="checkbox" data-section="roles" data-key="membro_add_expense"></div>
+
+          <div class="!justify-start text-gray-300 font-medium bg-white/[0.02]">Ver prestação de contas</div>
+          <div class="bg-white/[0.02]"><input type="checkbox" checked data-section="roles" data-key="admin_view_expense"></div>
+          <div class="bg-white/[0.02]"><input type="checkbox" checked data-section="roles" data-key="coord_view_expense"></div>
+          <div class="bg-white/[0.02]"><input type="checkbox" checked data-section="roles" data-key="portavoz_view_expense"></div>
+          <div class="bg-white/[0.02]"><input type="checkbox" checked data-section="roles" data-key="membro_view_expense"></div>
+
+          <!-- Mensagens -->
+          <div class="!justify-start text-gray-300 font-medium">Ver mensagens de contato</div>
+          <div><input type="checkbox" checked data-section="roles" data-key="admin_view_messages"></div>
+          <div><input type="checkbox" data-section="roles" data-key="coord_view_messages"></div>
+          <div><input type="checkbox" data-section="roles" data-key="portavoz_view_messages"></div>
+          <div><input type="checkbox" data-section="roles" data-key="membro_view_messages"></div>
+
+          <div class="!justify-start text-gray-300 font-medium">Excluir mensagens</div>
+          <div><input type="checkbox" checked data-section="roles" data-key="admin_delete_messages"></div>
+          <div><input type="checkbox" data-section="roles" data-key="coord_delete_messages"></div>
+          <div><input type="checkbox" data-section="roles" data-key="portavoz_delete_messages"></div>
+          <div><input type="checkbox" data-section="roles" data-key="membro_delete_messages"></div>
+
+          <!-- Gestão de pessoas -->
+          <div class="!justify-start text-gray-300 font-medium bg-white/[0.02]">Adicionar Membro</div>
+          <div class="bg-white/[0.02]"><input type="checkbox" checked data-section="roles" data-key="admin_add_member"></div>
+          <div class="bg-white/[0.02]"><input type="checkbox" checked data-section="roles" data-key="coord_add_member"></div>
+          <div class="bg-white/[0.02]"><input type="checkbox" data-section="roles" data-key="portavoz_add_member"></div>
+          <div class="bg-white/[0.02]"><input type="checkbox" data-section="roles" data-key="membro_add_member"></div>
+
+          <div class="!justify-start text-gray-300 font-medium bg-white/[0.02]">Remover Membro</div>
+          <div class="bg-white/[0.02]"><input type="checkbox" checked data-section="roles" data-key="admin_remove_member"></div>
+          <div class="bg-white/[0.02]"><input type="checkbox" data-section="roles" data-key="coord_remove_member"></div>
+          <div class="bg-white/[0.02]"><input type="checkbox" data-section="roles" data-key="portavoz_remove_member"></div>
+          <div class="bg-white/[0.02]"><input type="checkbox" data-section="roles" data-key="membro_remove_member"></div>
+
+          <div class="!justify-start text-gray-300 font-medium bg-white/[0.02]">Remover Porta-Voz</div>
+          <div class="bg-white/[0.02]"><input type="checkbox" checked data-section="roles" data-key="admin_remove_portavoz"></div>
+          <div class="bg-white/[0.02]"><input type="checkbox" checked data-section="roles" data-key="coord_remove_portavoz"></div>
+          <div class="bg-white/[0.02]"><input type="checkbox" data-section="roles" data-key="portavoz_remove_portavoz"></div>
+          <div class="bg-white/[0.02]"><input type="checkbox" data-section="roles" data-key="membro_remove_portavoz"></div>
+
+          <div class="!justify-start text-gray-300 font-medium">Remover Coordenador</div>
+          <div><input type="checkbox" checked data-section="roles" data-key="admin_remove_coord"></div>
+          <div><input type="checkbox" data-section="roles" data-key="coord_remove_coord"></div>
+          <div><input type="checkbox" data-section="roles" data-key="portavoz_remove_coord"></div>
+          <div><input type="checkbox" data-section="roles" data-key="membro_remove_coord"></div>
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        <div>
+          <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2">Sobre o Admin Master:</label>
+          <div class="space-y-2 pl-1">
+            <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="admin_master" value="national" data-section="roles" data-key="admin_master_who"> É alguém da coordenação nacional (não usa o sistema no dia a dia)</label>
+            <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="admin_master" value="local" data-section="roles" data-key="admin_master_who"> É o coordenador principal do DF (usa o sistema)</label>
+            <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="admin_master" value="both" data-section="roles" data-key="admin_master_who"> Pode ter mais de um Admin Master</label>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2">Há alguma permissão que não está listada acima? Descreva:</label>
+          <textarea data-section="roles" data-key="extra" placeholder="Ex: 'Porta-voz deveria poder aprovar novos membros antes de ativar o acesso'"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SEÇÃO 5: PRESTAÇÃO DE CONTAS ========== -->
+    <div class="section pt-12 pb-10">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-xs font-bold bg-df-green text-white px-2 py-0.5 rounded-full uppercase">Alta Prioridade</span>
+      </div>
+      <h3 class="text-2xl font-black tracking-tight mb-2">5. Prestação de Contas</h3>
+      <p class="text-gray-500 text-sm mb-8">Transparência financeira do movimento.</p>
+
+      <div class="space-y-6">
+        <div>
+          <p class="text-sm font-bold text-white mb-3">Atualmente o sistema tem:</p>
+          <div class="space-y-3 pl-1">
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked data-section="expenses" data-key="entry_exit"> <span class="text-sm">Registro de entradas e saídas</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked data-section="expenses" data-key="date_value_desc"> <span class="text-sm">Campos: data, valor e descrição</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked data-section="expenses" data-key="history_table"> <span class="text-sm">Tabela com histórico completo</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked data-section="expenses" data-key="member_view"> <span class="text-sm">Qualquer membro logado pode ver</span></label>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-sm font-bold text-white mb-3">Quer adicionar funcionalidades?</p>
+          <div class="space-y-3 pl-1">
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="expenses" data-key="categories"> <span class="text-sm">Categorias de gastos (ex: "Transporte", "Material", "Evento")</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="expenses" data-key="balance"> <span class="text-sm">Mostrar saldo total (entradas - saídas)</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="expenses" data-key="monthly_filter"> <span class="text-sm">Filtrar por mês/período</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="expenses" data-key="export_pdf"> <span class="text-sm">Exportar relatório em PDF</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="expenses" data-key="export_excel"> <span class="text-sm">Exportar para Excel/CSV</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="expenses" data-key="receipt"> <span class="text-sm">Anexar comprovante (foto/PDF) em cada lançamento</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="expenses" data-key="edit_delete"> <span class="text-sm">Editar ou excluir lançamentos já feitos</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="expenses" data-key="public_view"> <span class="text-sm">Deixar prestação de contas pública (sem precisar de login)</span></label>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2">Observações sobre prestação de contas:</label>
+          <textarea data-section="expenses" data-key="extra" placeholder="Algo mais..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SEÇÃO 6: EVENTOS ========== -->
+    <div class="section pt-12 pb-10">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-xs font-bold bg-df-yellow text-mbl-black px-2 py-0.5 rounded-full uppercase">Média Prioridade</span>
+      </div>
+      <h3 class="text-2xl font-black tracking-tight mb-2">6. Eventos</h3>
+      <p class="text-gray-500 text-sm mb-8">Organização e divulgação de atos, reuniões e encontros.</p>
+
+      <div class="space-y-6">
+        <div>
+          <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-3">Como os eventos devem funcionar?</label>
+          <div class="space-y-3 pl-1">
+            <label class="flex items-start gap-2 cursor-pointer text-sm">
+              <input type="radio" name="events_type" value="news_only" data-section="events" data-key="type" class="mt-0.5">
+              <div>
+                <span class="font-bold text-white">Usar o sistema de notícias</span>
+                <p class="text-gray-500 text-xs">Eventos são publicados como notícias normais (sem funcionalidade extra)</p>
+              </div>
+            </label>
+            <label class="flex items-start gap-2 cursor-pointer text-sm">
+              <input type="radio" name="events_type" value="separate" data-section="events" data-key="type" class="mt-0.5" onchange="toggleConditional(this, 'events-detail')">
+              <div>
+                <span class="font-bold text-white">Seção separada de eventos</span>
+                <p class="text-gray-500 text-xs">Página própria com data, local e informações específicas</p>
+              </div>
+            </label>
+            <label class="flex items-start gap-2 cursor-pointer text-sm">
+              <input type="radio" name="events_type" value="unsure" data-section="events" data-key="type" class="mt-0.5">
+              <div>
+                <span class="font-bold text-white">Não sei ainda</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div id="events-detail" class="conditional !pl-0">
+          <p class="text-sm font-bold text-white mb-3">Se for seção separada, o que cada evento teria?</p>
+          <div class="space-y-3 pl-1">
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="events" data-key="event_date"> <span class="text-sm">Data e horário</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="events" data-key="event_location"> <span class="text-sm">Local / endereço</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="events" data-key="event_map"> <span class="text-sm">Mapa com localização</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="events" data-key="event_rsvp"> <span class="text-sm">Confirmação de presença</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="events" data-key="event_calendar"> <span class="text-sm">Calendário visual com os eventos</span></label>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2">Observações sobre eventos:</label>
+          <textarea data-section="events" data-key="extra" placeholder="Algo mais..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SEÇÃO 7: LOJA ========== -->
+    <div class="section pt-12 pb-10">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-xs font-bold bg-orange-500 text-white px-2 py-0.5 rounded-full uppercase">Baixa Prioridade — Fase Futura</span>
+      </div>
+      <h3 class="text-2xl font-black tracking-tight mb-2">7. Loja / Produtos</h3>
+      <p class="text-gray-500 text-sm mb-4">Venda de produtos do movimento.</p>
+      <p class="text-orange-400/60 text-xs mb-8">⚠ Esta funcionalidade será planejada agora mas desenvolvida em uma fase futura.</p>
+
+      <div class="space-y-6">
+        <div>
+          <p class="text-sm font-bold text-white mb-3">Que tipo de produtos seriam vendidos?</p>
+          <div class="space-y-3 pl-1">
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="store" data-key="physical"> <span class="text-sm">Produtos físicos (camisetas, bonés, adesivos...)</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="store" data-key="digital"> <span class="text-sm">Produtos digitais (e-books, materiais...)</span></label>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-sm font-bold text-white mb-3">Como seria o pagamento?</p>
+          <div class="space-y-2 pl-1">
+            <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="store_payment" value="integrated" data-section="store" data-key="payment"> Pagamento integrado no site (cartão, Pix)</label>
+            <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="store_payment" value="external" data-section="store" data-key="payment"> Redirecionar para link externo (Mercado Livre, WhatsApp...)</label>
+            <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="store_payment" value="unsure" data-section="store" data-key="payment"> Não sei ainda</label>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-sm font-bold text-white mb-3">O que cada produto teria?</p>
+          <div class="space-y-3 pl-1">
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked data-section="store" data-key="prod_name"> <span class="text-sm">Nome</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked data-section="store" data-key="prod_price"> <span class="text-sm">Preço</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked data-section="store" data-key="prod_image"> <span class="text-sm">Foto</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="store" data-key="prod_description"> <span class="text-sm">Descrição</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="store" data-key="prod_sizes"> <span class="text-sm">Tamanhos (P, M, G...)</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-section="store" data-key="prod_stock"> <span class="text-sm">Controle de estoque</span></label>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2">Observações sobre a loja:</label>
+          <textarea data-section="store" data-key="extra" placeholder="Detalhes adicionais..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SEÇÃO 8: ASSINATURAS ========== -->
+    <div class="section pt-12 pb-10">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-xs font-bold bg-orange-500 text-white px-2 py-0.5 rounded-full uppercase">Baixa Prioridade — Fase Futura</span>
+      </div>
+      <h3 class="text-2xl font-black tracking-tight mb-2">8. Planos de Assinatura</h3>
+      <p class="text-gray-500 text-sm mb-4">Sistema de apoio mensal ao movimento com faixas de benefícios.</p>
+      <p class="text-orange-400/60 text-xs mb-8">⚠ Esta funcionalidade será planejada agora mas desenvolvida em uma fase futura.</p>
+
+      <div class="space-y-8">
+        <div>
+          <p class="text-sm font-bold text-white mb-3">Quem seria o público das assinaturas?</p>
+          <div class="space-y-2 pl-1">
+            <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="sub_audience" value="public" data-section="subscription" data-key="audience"> Qualquer pessoa (apoiadores externos)</label>
+            <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="sub_audience" value="members" data-section="subscription" data-key="audience"> Apenas membros do movimento</label>
+            <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="sub_audience" value="both" data-section="subscription" data-key="audience"> Ambos</label>
+          </div>
+        </div>
+
+        <!-- Plano 1 -->
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+          <h4 class="text-lg font-bold text-df-yellow mb-4">Faixa 1 — Plano Básico</h4>
+          <div class="space-y-3">
+            <div>
+              <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1">Nome do plano</label>
+              <input type="text" data-section="subscription" data-key="plan1_name" placeholder="Ex: Apoiador">
+            </div>
+            <div>
+              <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1">Valor mensal (R$)</label>
+              <input type="text" data-section="subscription" data-key="plan1_price" placeholder="Ex: 19,90">
+            </div>
+            <div>
+              <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1">Benefícios (liste o que o assinante recebe)</label>
+              <textarea data-section="subscription" data-key="plan1_benefits" placeholder="Ex: Acesso ao grupo exclusivo, adesivo do MBL..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Plano 2 -->
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+          <h4 class="text-lg font-bold text-df-green mb-4">Faixa 2 — Plano Intermediário</h4>
+          <div class="space-y-3">
+            <div>
+              <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1">Nome do plano</label>
+              <input type="text" data-section="subscription" data-key="plan2_name" placeholder="Ex: Militante">
+            </div>
+            <div>
+              <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1">Valor mensal (R$)</label>
+              <input type="text" data-section="subscription" data-key="plan2_price" placeholder="Ex: 49,90">
+            </div>
+            <div>
+              <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1">Benefícios</label>
+              <textarea data-section="subscription" data-key="plan2_benefits" placeholder="Tudo do básico + ..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Plano 3 -->
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+          <h4 class="text-lg font-bold text-white mb-4">Faixa 3 — Plano Premium</h4>
+          <div class="space-y-3">
+            <div>
+              <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1">Nome do plano</label>
+              <input type="text" data-section="subscription" data-key="plan3_name" placeholder="Ex: Patrono">
+            </div>
+            <div>
+              <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1">Valor mensal (R$)</label>
+              <input type="text" data-section="subscription" data-key="plan3_price" placeholder="Ex: 99,90">
+            </div>
+            <div>
+              <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1">Benefícios</label>
+              <textarea data-section="subscription" data-key="plan3_benefits" placeholder="Tudo do intermediário + ..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2">Observações sobre os planos:</label>
+          <textarea data-section="subscription" data-key="extra" placeholder="Algo mais..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SEÇÃO 9: PRIORIDADES ========== -->
+    <div class="section pt-12 pb-10">
+      <h3 class="text-2xl font-black tracking-tight mb-2">9. Resumo de Prioridades</h3>
+      <p class="text-gray-500 text-sm mb-8">Confirme a ordem de importância. O que é <span class="text-df-green font-bold">alta prioridade</span> entra na primeira versão.</p>
+
+      <div class="space-y-4">
+        <div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl p-4">
+          <span class="text-sm font-bold">Página Inicial (com ajustes)</span>
+          <select data-section="priority" data-key="home" class="bg-mbl-dark text-white text-sm px-3 py-1.5 rounded-lg border border-white/10">
+            <option value="high">🟢 Alta</option><option value="medium">🟡 Média</option><option value="low">🟠 Baixa</option>
+          </select>
+        </div>
+        <div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl p-4">
+          <span class="text-sm font-bold">Membros (fotos/bios reais)</span>
+          <select data-section="priority" data-key="members" class="bg-mbl-dark text-white text-sm px-3 py-1.5 rounded-lg border border-white/10">
+            <option value="high">🟢 Alta</option><option value="medium">🟡 Média</option><option value="low">🟠 Baixa</option>
+          </select>
+        </div>
+        <div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl p-4">
+          <span class="text-sm font-bold">Notícias</span>
+          <select data-section="priority" data-key="news" class="bg-mbl-dark text-white text-sm px-3 py-1.5 rounded-lg border border-white/10">
+            <option value="high">🟢 Alta</option><option value="medium">🟡 Média</option><option value="low">🟠 Baixa</option>
+          </select>
+        </div>
+        <div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl p-4">
+          <span class="text-sm font-bold">Cargos e Permissões</span>
+          <select data-section="priority" data-key="roles" class="bg-mbl-dark text-white text-sm px-3 py-1.5 rounded-lg border border-white/10">
+            <option value="high">🟢 Alta</option><option value="medium">🟡 Média</option><option value="low">🟠 Baixa</option>
+          </select>
+        </div>
+        <div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl p-4">
+          <span class="text-sm font-bold">Prestação de Contas</span>
+          <select data-section="priority" data-key="expenses" class="bg-mbl-dark text-white text-sm px-3 py-1.5 rounded-lg border border-white/10">
+            <option value="high">🟢 Alta</option><option value="medium">🟡 Média</option><option value="low">🟠 Baixa</option>
+          </select>
+        </div>
+        <div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl p-4">
+          <span class="text-sm font-bold">Eventos</span>
+          <select data-section="priority" data-key="events" class="bg-mbl-dark text-white text-sm px-3 py-1.5 rounded-lg border border-white/10">
+            <option value="high">🟢 Alta</option><option value="medium" selected>🟡 Média</option><option value="low">🟠 Baixa</option>
+          </select>
+        </div>
+        <div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl p-4">
+          <span class="text-sm font-bold">Loja / Produtos</span>
+          <select data-section="priority" data-key="store" class="bg-mbl-dark text-white text-sm px-3 py-1.5 rounded-lg border border-white/10">
+            <option value="high">🟢 Alta</option><option value="medium">🟡 Média</option><option value="low" selected>🟠 Baixa</option>
+          </select>
+        </div>
+        <div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl p-4">
+          <span class="text-sm font-bold">Planos de Assinatura</span>
+          <select data-section="priority" data-key="subscription" class="bg-mbl-dark text-white text-sm px-3 py-1.5 rounded-lg border border-white/10">
+            <option value="high">🟢 Alta</option><option value="medium">🟡 Média</option><option value="low" selected>🟠 Baixa</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mt-8">
+        <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2">Tem algo que não foi coberto neste formulário?</label>
+        <textarea data-section="priority" data-key="missing" placeholder="Funcionalidades, ideias ou observações que não foram mencionadas..."></textarea>
+      </div>
+    </div>
+
+    <!-- Final -->
+    <div class="section pt-12 pb-20 text-center">
+      <div class="w-16 h-16 bg-df-green/20 rounded-full flex items-center justify-center mx-auto mb-6">
+        <span class="text-3xl">✅</span>
+      </div>
+      <h3 class="text-2xl font-black mb-3">Formulário completo!</h3>
+      <p class="text-gray-400 mb-8 max-w-md mx-auto">Clique no botão abaixo para exportar suas respostas. Você receberá um texto formatado que pode copiar e enviar.</p>
+      <button onclick="exportForm()" class="px-8 py-4 bg-df-green text-white font-bold rounded-xl hover:bg-df-neonGreen transition-all shadow-lg shadow-df-green/20 text-lg">
+        Exportar Respostas
+      </button>
+
+      <div id="exportResult" class="hidden mt-8 text-left">
+        <textarea id="exportText" class="w-full min-h-[400px] !bg-white/10 !border-df-green/30 text-sm font-mono" readonly></textarea>
+        <button onclick="copyExport()" class="mt-4 px-6 py-3 bg-mbl-dark text-white font-bold rounded-xl border border-white/10 hover:bg-white/10 transition-all">
+          Copiar para área de transferência
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'mbldf_requisitos';
+
+    // ── Persistência ──
+    function saveToStorage() {
+      const data = {};
+      document.querySelectorAll('[data-section]').forEach(el => {
+        const id = el.dataset.section + '.' + el.dataset.key;
+        if (el.type === 'checkbox') {
+          data[id] = el.checked;
+        } else if (el.type === 'radio') {
+          if (el.checked) data[id] = el.value;
+        } else if (el.tagName === 'SELECT') {
+          data[id] = el.value;
+        } else {
+          data[id] = el.value;
+        }
+      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    function loadFromStorage() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      try {
+        const data = JSON.parse(raw);
+        document.querySelectorAll('[data-section]').forEach(el => {
+          const id = el.dataset.section + '.' + el.dataset.key;
+          if (!(id in data)) return;
+          if (el.type === 'checkbox') {
+            el.checked = data[id];
+          } else if (el.type === 'radio') {
+            el.checked = el.value === data[id];
+          } else if (el.tagName === 'SELECT') {
+            el.value = data[id];
+          } else {
+            el.value = data[id];
+          }
+        });
+        // Reabrir condicionais
+        document.querySelectorAll('[onchange*="toggleConditional"]').forEach(el => {
+          if ((el.type === 'checkbox' && el.checked) || (el.type === 'radio' && el.checked)) {
+            const match = el.getAttribute('onchange').match(/toggleConditional\(this,\s*'([^']+)'\)/);
+            if (match) document.getElementById(match[1])?.classList.add('show');
+          }
+        });
+      } catch {}
+    }
+
+    // Auto-save em qualquer mudança
+    document.addEventListener('input', saveToStorage);
+    document.addEventListener('change', saveToStorage);
+
+    // Carregar ao abrir
+    document.addEventListener('DOMContentLoaded', loadFromStorage);
+
+    // ── Condicionais ──
+    function toggleConditional(el, targetId) {
+      const target = document.getElementById(targetId);
+      if (!target) return;
+      if (el.type === 'checkbox') {
+        target.classList.toggle('show', el.checked);
+      } else if (el.type === 'radio' && el.checked) {
+        target.classList.add('show');
+      }
+    }
+
+    document.querySelectorAll('input[type="radio"]').forEach(r => {
+      r.addEventListener('change', () => {
+        document.querySelectorAll(`input[name="${r.name}"]`).forEach(other => {
+          const onchange = other.getAttribute('onchange');
+          if (onchange && onchange.includes('toggleConditional') && other !== r) {
+            const match = onchange.match(/toggleConditional\(this,\s*'([^']+)'\)/);
+            if (match) document.getElementById(match[1])?.classList.remove('show');
+          }
+        });
+      });
+    });
+
+    // ── Exportar ──
+    function exportForm() {
+      const sections = {};
+      document.querySelectorAll('[data-section]').forEach(el => {
+        const section = el.dataset.section;
+        const key = el.dataset.key;
+        if (!sections[section]) sections[section] = {};
+        let value;
+        if (el.type === 'checkbox') { value = el.checked; }
+        else if (el.type === 'radio') { if (!el.checked) return; value = el.value; }
+        else if (el.tagName === 'SELECT') { value = el.value; }
+        else { value = el.value.trim(); if (!value) return; }
+        sections[section][key] = value;
+      });
+
+      const labels = {
+        home: '📌 PÁGINA INICIAL', members: '👥 MEMBROS', news: '📰 NOTÍCIAS',
+        roles: '🔐 CARGOS E PERMISSÕES', expenses: '💰 PRESTAÇÃO DE CONTAS',
+        events: '📅 EVENTOS', store: '🛒 LOJA', subscription: '💳 ASSINATURAS',
+        priority: '🎯 PRIORIDADES'
+      };
+
+      let output = '═══════════════════════════════════════\n';
+      output += '  MBL DF — REQUISITOS DO PORTAL\n';
+      output += '  Data: ' + new Date().toLocaleDateString('pt-BR') + '\n';
+      output += '═══════════════════════════════════════\n\n';
+
+      for (const [section, data] of Object.entries(sections)) {
+        output += `\n${labels[section] || section}\n${'─'.repeat(40)}\n`;
+        for (const [key, value] of Object.entries(data)) {
+          const label = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+          if (typeof value === 'boolean') { output += `  ${value ? '✅' : '❌'} ${label}\n`; }
+          else { output += `  ${label}: ${value}\n`; }
+        }
+      }
+
+      document.getElementById('exportResult').classList.remove('hidden');
+      document.getElementById('exportText').value = output;
+      document.getElementById('exportResult').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function copyExport() {
+      const text = document.getElementById('exportText');
+      text.select();
+      navigator.clipboard.writeText(text.value);
+      event.target.textContent = 'Copiado!';
+      setTimeout(() => event.target.textContent = 'Copiar para área de transferência', 2000);
+    }
+
+    function clearForm() {
+      if (!confirm('Tem certeza? Isso vai apagar todas as respostas.')) return;
+      localStorage.removeItem(STORAGE_KEY);
+      location.reload();
+    }
+  </script>
+</body>
+</html>
